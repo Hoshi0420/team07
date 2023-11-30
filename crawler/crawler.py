@@ -24,10 +24,10 @@ class YouTubeBot:
         ua = UserAgent()
         user_agent = ua.random
         # chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--window-size=1080,1080')
+        chrome_options.add_argument('--window-size=1920,1080')
         chrome_options.add_argument(f'user-agent={user_agent}')
         chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument('--proxy-server=socks5://127.0.0.1:9050')
+        # chrome_options.add_argument('--proxy-server=socks5://127.0.0.1:9050')
         return Chrome(chrome_options)
 
     def get_random_persona(self):
@@ -51,6 +51,9 @@ class YouTubeBot:
             time.sleep(3)
             self.driver.find_element(By.XPATH, '/html/body/ytd-app/div[1]/div/ytd-masthead/div[4]/div[1]/ytd-topbar-logo-renderer/a/div').click()
             time.sleep(2)
+        finally:
+            self.driver.find_element(By.XPATH, '/html/body/ytd-app/div[1]/div/ytd-masthead/div[4]/div[3]/div[2]/ytd-topbar-menu-button-renderer/div/a/yt-icon-button/button')
+            
         self.driver.find_element(By.ID, 'search-form').find_element(By.ID, 'search').send_keys(f'{keyword}')
         time.sleep(0.3)
         self.driver.find_element(By.ID, 'search-icon-legacy').click()

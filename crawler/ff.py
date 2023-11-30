@@ -8,6 +8,7 @@ import random
 from fake_useragent import UserAgent
 from datetime import datetime
 import re
+from memory_profiler import profile
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -22,6 +23,7 @@ class YouTubeBot:
         return WebDriverWait(self.driver, timeout).until(
             EC.presence_of_element_located((by, value))
         )
+        
 
     def setup_driver(self):
         firefox_options = Options()
@@ -69,6 +71,7 @@ class YouTubeBot:
             time.sleep(random.uniform(0.4, 0.6))
             self.driver.find_element(By.ID, 'submenu').find_elements(By.TAG_NAME, 'ytd-compact-link-renderer')[-4].click()
             time.sleep(2)
+            
         self.wait_for_element(By.ID, 'search-form')
         time.sleep(random.uniform(0.5, 1))
         self.driver.find_element(By.ID, 'search-form').find_element(By.ID, 'search').send_keys(f'{keyword}')
@@ -430,5 +433,3 @@ if __name__ == "__main__":
     bot = YouTubeBot()
     result_df = bot.run()  # Save the returned DataFrame as a variable
     bot.cleanup()
-    
-
