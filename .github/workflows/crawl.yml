@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+
+    - name: Build Docker image
+      run: docker image build -t crawl .
+
+    - name: Run Docker container
+      run: docker container run -d --name crawl-test -p 4444:4444 crawl
+
+    - name: Stop and remove
+      run: |
+        docker container stop crwal
+        docker container rm crawl

@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  remote_selenium:
+    platform: linux/amd64
+    container_name: remote_selenium
+    image: test:1.2
+    shm_size: 2gb
+    ports:
+      - 4444:4444
+    networks:
+      - our_net
+    command: bash -c "./start_tor.sh && python3 app.py"
+
+networks:
+  our_net:
+    driver: bridge

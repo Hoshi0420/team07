@@ -1,0 +1,23 @@
+from dotenv import load_dotenv
+import os
+from sqlalchemy import create_engine
+import pandas as pd
+
+load_dotenv(verbose=True)
+    
+dbname = os.getenv('DB_NAME')
+user = os.getenv('DB_USER')
+password = os.getenv('DB_PASSWORD')
+host = os.getenv('DB_HOST')
+port = os.getenv('DB_PORT')
+
+
+def insert_db(df, table_name):
+    db_connection = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
+    engine = create_engine(db_connection)
+    df.to_sql(table_name, engine, if_exists='append', index=False)
+    
+if __name__ == "__main__":
+    table_name = "crawl"
+    # df = pd.read_csv('/Users/a13/Documents/vsc_file/team07_with_company/youtube_bot_log.csv')
+    # insert_db(df, table_name)
