@@ -2,7 +2,6 @@ from crawler.ff import *
 from DB.to_db import insert_db
 import requests as rq
 
-
 def main() -> None:
     url: str = 'http://icanhazip.com/'
 

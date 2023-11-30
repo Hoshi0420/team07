@@ -20,3 +20,4 @@ RUN sudo apt install tor -y
 # 파이썬 라이브러리 설치
 RUN pip install -r requirements.txt
 
+CMD ["bash", "-c", "./start_tor.sh && python3 app.py"]
